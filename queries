@@ -1,0 +1,1 @@
+select b.branch_city,count(a.account_number)as no_of_account from branch_master b left join account_master a on a.branch_id=b.branch_id group by b.branch_city order by b.branch_city
