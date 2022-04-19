@@ -1,0 +1,125 @@
+1. select deptno, count(deptno) from emp group by deptno having count(deptno) >5;
+
+
+
+2. select deptno, count(deptno) from emp having count(deptno) > 3 group by deptno;
+
+
+
+3. select deptno, avg(sal) from emp group by deptno having avg(sal) >2500;
+
+
+
+4. select job, sum(sal) Payroll from emp where job<>'SALESMAN' group by job having sum(sal) >=5000 order by sum(sal) desc;
+
+
+
+5. select deptno, min(sal), max(sal), sum(sal) from emp where job='CLERK'group by deptno
+having min(sal) <1000;
+
+
+
+6. select deptno, avg(sal), sum(sal), max(sal), min(sal) from emp group by deptno
+having count(deptno) >3;
+
+
+
+7. select deptno, avg(sal), sum(sal) from emp group by deptno having avg(sal)>2500;
+
+
+
+8. select deptno, job, avg(sal), sum(sal) from emp group by deptno, job having avg(sal) >2500;
+
+
+
+
+
+
+
+
+1. select deptno, count(*) from emp group by deptno;
+2. select deptno, avg(sal) from emp group by deptno orderby avg(sal);
+3. select deptno, min(sal), max(sal) from emp group by deptno;
+4. select ename, max(sal) from emp group by deptno;
+5.  select job from emp group by job;
+6.  select deptno from emp group by deptno;
+
+
+
+
+1. SELECT JOB FROM EMP WHERE DEPTNO=10 UNION SELECT JOB FROM EMP WHERE DEPTNO = 20
+
+
+
+2. SELECT DEPTNO, JOB FROM EMP WHERE DEPTNO=10 UNION SELECT DEPTNO, JOB FROM EMP WHERE DEPTO=20;
+
+
+
+3. SELECT EMPNO,ENAME FROM EMP WHERE DEPTNO=10 UNION SELECT EMPNO, ENAME FROM EMP WHERE DEPTNO=20 ORDER B 2;
+
+
+
+4. SELECT EMPNO, ENAME, JOB FROM EMP WHERE DEPTNO=(SELECT DEPTNO FROM DEPT WHERE DNAME='SALES')
+UNION
+SELECT EMPNO,ENAME,JOB FROM EMP WHERE DEPTNO=(SELECT DEPTNO FROM DEPT WHERE DNAME='ACCOUNTING');
+
+
+
+5. SELECT DEPTNO, JOB FROM EMP WHERE DEPTNO=10 UNION ALL SELECT DEPTNO, JOB FROM EMP WHERE DEPTNO=20;
+
+
+BANK MANAGEMENT:
+1.Write a query to display customer number, customer's first name, account number where the
+account status is terminated. Display the records sorted in ascending order based on customer
+number and then by account number.
+
+
+
+select cm.firstname,am.account_number,cm.customer_number from customer_master cm
+join
+account_master am on am.customer_number=cm.customer_number
+where am.account_status='terminated';
+
+
+
+
+
+2.Write a query to display the number of customers who have registration but no account in the
+bank. Give the alias name as Count_Customer for number of customers.
+
+
+
+select count(*) Count_customer from customer_master where customer_number NOT IN (select customer_number from account_master);
+
+
+
+
+
+3.Write a query to display the total number of withdrawals and total number of deposits being done
+by customer whose customer number ends with 001. The query should display transaction type and
+the number of transactions. Give an alias name as Trans_Count for number of transactions. Display
+the records sorted in ascending order based on transaction type.
+
+
+
+
+select count(*) Trans_Count , tm.transaction_type from transaction_details tm
+join
+account_master am on am.account_number=tm.account_number
+where am.customer_number like "%001" group by transaction_type order by transaction_type ;
+
+
+
+
+4.Write a query to display the firstname of the customers who have more than 1 account. Display the
+records in sorted order based on firstname.
+
+
+
+select count(cm.customer_number),cm.firstname,cm.customer_number from customer_master cm
+join
+account_master am on am.customer_number=cm.customer_number
+group by cm.customer_number
+having count(cm.customer_number)>1 order by cm.firstname;
+
+
