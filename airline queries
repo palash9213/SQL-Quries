@@ -1,0 +1,15 @@
+create database airline;
+use airline;
+create table air_flight(flight_id varchar(10) not null primary key ,airline_id varchar(10),airline_name varchar(30),from_location varchar(20),to_location varchar(20),departure_time time,arrival_time time,duration time,total_seats int(11) );
+create table air_flight_details(flight_id varchar(10) check (flight_id between 3170 and 3180),flight_departure_date date,price decimal(8,2),available_seats int(11),foreign key(flight_id) references air_flight(flight_id) );
+create table air_passenger_profile(profile_id varchar(10) not null primary key,password varchar(10),first_name varchar(10) not null,last_name varchar(10),address varchar(10),mobile_number bigint(10),email_id varchar(30) check(email_id like'%__@__%'));
+create table air_credit_card_detalis(profile_id varchar(10),card_number bigint(16),card_type varchar(10) check(card_type like 'credit' or card_type like'debit'),expiration_month int(2),expiration_year int(4));
+alter table air_credit_card_details add foreign key(profile_id) references air_passenger_profile(profile_id);
+alter table air_credit_card_detalis rename to air_credit_card_details;
+create table air_ticket_info(ticket_id varchar(10) not null primary key,profile_id varchar(10),flight_id varchar(10),flight_departure_date date check(flight_departure_date>current_date),status varchar(10),foreign key(profile_id) references air_passenger_profile(profile_id),foreign key(flight_id) references air_flight(flight_id));
+
+
+
+
+
+
