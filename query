@@ -1,0 +1,9 @@
+
+
+sql> Select Deptno, sum(sal) from emp group by deptno with rollup;sql> select job, sum(sal) from emp group by job with rollup;
+sql> select deptno, avg(sal) from emp group by deptno with rollup;
+
+
+sql> select deptno, job, sum(sal) from emp group by deptno, job with rollup;
+sql> select job,deptno, sum(sal) totsal from emp group by job, deptno with rollup;sql> select job, deptno, avg(sal) totsal from emp group by job, deptno with rollup;
+
